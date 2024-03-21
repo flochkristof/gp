@@ -107,5 +107,22 @@ class SGPModel:
             else:
                 return mean, pred.variance
             
+    def predict(self, gp_input, scale_input: bool = True, descale_output: bool = True):
+        """Predicts the output at the given input points
+    
+        
+        :param gp_input: input data
+        :type gp_input: np.ndarray or torch.tensor
+        :param scale_input: scale the input data, defaults to True
+        :type scale_input: bool, optional
+        :param descale_output: descale the output data, defaults to True
+        :type descale_output: bool, optional
+        :return: predicted output
+        :rtype: torch.tensor
+        """
+
+        # wrapper for eval_gp for comaptibilty
+        return self.eval_gp(gp_input=gp_input, scale_input=scale_input, descale_output=descale_output) 
+            
     def __str__(self) -> str:
         return f"SGP: M={self.num_of_inducing}"
